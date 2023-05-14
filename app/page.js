@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {movies.map((movie) => (
-        <MovieCard key={movie.movie_id} movie={movie} />
+        <MovieCard key={movie.movieId} movie={movie} />
       ))}
       <Pagination
         count={pageCount}
