@@ -4,7 +4,7 @@ import style from './header.module.css';
 function Header() {
   return (
     <div className={style.header} id='head'>
-      Header
+      Douban Movies
     </div>
   );
 }

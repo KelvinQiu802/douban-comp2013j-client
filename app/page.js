@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import MovieCard from './MovieCard';
 
-const LIMIT = 15;
+const LIMIT = 10;
 
 async function getPageCount() {
   const result = await fetch('http://localhost:7070/api/movies/count');
