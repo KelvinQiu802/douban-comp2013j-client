@@ -29,6 +29,10 @@ export default function Home() {
 
   function handlePageChange(e, pageNum) {
     setPage(pageNum);
+    let anchorElement = document.getElementById('head');
+    if (anchorElement) {
+      anchorElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   useEffect(() => {
