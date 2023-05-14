@@ -3,6 +3,7 @@
 import { Pagination, stepButtonClasses } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
+import MovieCard from './MovieCard';
 
 const LIMIT = 15;
 
@@ -45,7 +46,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {movies.map((movie) => (
-        <h5 key={movie.movieId}>{movie.movieTitle}</h5>
+        <MovieCard key={movie.movie_id} movie={movie} />
       ))}
       <Pagination
         count={pageCount}
