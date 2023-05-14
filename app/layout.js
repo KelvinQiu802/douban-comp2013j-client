@@ -1,7 +1,7 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Douban Movies',
@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en' className={inter.className}>
+    <html lang='en' className={Roboto.className}>
       <body>{children}</body>
     </html>
   );
