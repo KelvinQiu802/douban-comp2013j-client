@@ -17,6 +17,17 @@ import { green } from '@mui/material/colors';
 const theme = createTheme();
 
 export default function SignUp() {
+  const [userInfo, setUserInfo] = React.useState({
+    userName: '',
+    password: '',
+  });
+
+  const handleInfoChange = (e) => {
+    setUserInfo((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -53,6 +64,8 @@ export default function SignUp() {
               label='Username'
               name='userName'
               color='success'
+              onChange={handleInfoChange}
+              value={userInfo.userName}
               autoFocus
             />
             <TextField
@@ -64,6 +77,8 @@ export default function SignUp() {
               type='password'
               id='password'
               color='success'
+              onChange={handleInfoChange}
+              value={userInfo.password}
               autoComplete='current-password'
             />
             <Button
