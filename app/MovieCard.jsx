@@ -32,8 +32,8 @@ function MovieCard({ movie }) {
         </div>
         <p className={styles.abstract}>{`"${movie.abstractInfo}"`}</p>
         <div className={styles.btns}>
-          <div>想看</div>
-          <div>看过</div>
+          <div>Wanna Watch</div>
+          <div>Watched</div>
         </div>
       </div>
     </div>
