@@ -13,7 +13,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <link rel='icon' href='/favicon.svg' sizes='any' />
+      <head>
+        <link rel='icon' href='/favicon.svg' sizes='any' />
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Righteous&display=swap'
+          rel='stylesheet'
+        />
+      </head>
       <body>
         <div>
           <Header />

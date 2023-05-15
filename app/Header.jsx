@@ -20,7 +20,7 @@ function Header() {
             alt='facivon'
             className={style.icon}
           />
-          <h1>Douban</h1>
+          <h1>Douban Movies</h1>
         </div>
 
         <div className={style.right}>
