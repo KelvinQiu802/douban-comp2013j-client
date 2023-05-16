@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './movie.module.css';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
+import Link from 'next/link';
 
 function MovieCard({ movie }) {
   const fakeScore = Math.random() * 10;
@@ -12,7 +13,9 @@ function MovieCard({ movie }) {
     <div className={styles.card}>
       <Image src={movie.imgUrl} alt='img' width={100} height={150} />
       <div className={styles.right}>
-        <h1>{movie.movieTitle}</h1>
+        <Link href={`/movie/${movie.movieId}`}>
+          <h1>{movie.movieTitle}</h1>
+        </Link>
         <p className={styles.director}>
           {`Director: ${movie.director} / Starring: ${movie.starring}`}
         </p>
