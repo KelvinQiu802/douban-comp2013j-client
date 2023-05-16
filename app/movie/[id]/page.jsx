@@ -1,8 +1,14 @@
-export async function generateStaticParams() {
-  const result = await fetch('http:localhost:7070/api/movies');
+import React from 'react';
 
-  return posts.map((post) => ({
-    slug: post.slug,
+export default function Page({ params }) {
+  return <div>{params.id}</div>;
+}
+
+export async function generateStaticParams() {
+  const ids = await getAllIds();
+
+  return ids.map((id) => ({
+    id: toString(id),
   }));
 }
 
@@ -13,8 +19,9 @@ async function getAllIds() {
   const allMovies = await fetch(
     `http://localhost:7070/api/movies?page=1&limit=${movieNumber.count}`
   ).then((result) => result.json());
-  const ids = allMovies.map((movie) => {
-    return { movieId: movie.movieId };
+  const ids = [];
+  allMovies.forEach((movie) => {
+    ids.push(movie.movieId);
   });
   return ids;
 }
