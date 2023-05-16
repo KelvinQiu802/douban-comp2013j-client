@@ -13,10 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
+import { isBlank } from '@/utils/stringUtil';
 
 const theme = createTheme();
 
 export default function SignIn() {
+  let [btnDisabled, setBtnDisabled] = React.useState(true);
   const [userInfo, setUserInfo] = React.useState({
     userName: '',
     password: '',
@@ -24,7 +26,9 @@ export default function SignIn() {
 
   const handleInfoChange = (e) => {
     setUserInfo((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+      const updated = { ...prev, [e.target.name]: e.target.value };
+      setBtnDisabled(isBlank(updated.userName) || isBlank(updated.password));
+      return updated;
     });
   };
 
@@ -85,6 +89,7 @@ export default function SignIn() {
               type='submit'
               fullWidth
               variant='contained'
+              disabled={btnDisabled}
               sx={{
                 mt: 3,
                 mb: 2,

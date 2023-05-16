@@ -13,10 +13,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
+import { useRouter } from 'next/navigation';
+import { isBlank } from '@/utils/stringUtil';
+import { Alert } from '@mui/material';
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const router = useRouter();
+
+  let [btnDisabled, setBtnDisabled] = React.useState(true);
+  let [hasSameName, setHasSameName] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState({
     userName: '',
     password: '',
@@ -24,12 +31,32 @@ export default function SignUp() {
 
   const handleInfoChange = (e) => {
     setUserInfo((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+      const updated = { ...prev, [e.target.name]: e.target.value };
+      setBtnDisabled(isBlank(updated.userName) || isBlank(updated.password));
+      return updated;
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const result = await fetch('http://localhost:7070/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userInfo),
+    });
+    if (result.status != 200) {
+      alert('Sign up failed, please try again.');
+    } else {
+      router.push('/');
+    }
+  };
+
+  const handleNameCheck = async () => {
+    const users = await fetch('http://localhost:7070/api/users');
+    const userList = await users.json();
+    setHasSameName(userList.includes(userInfo.userName));
   };
 
   return (
@@ -65,9 +92,15 @@ export default function SignUp() {
               name='userName'
               color='success'
               onChange={handleInfoChange}
+              onBlur={handleNameCheck}
               value={userInfo.userName}
               autoFocus
             />
+            {hasSameName && (
+              <Alert severity='error' sx={{ width: 400 }}>
+                The user name has been used.
+              </Alert>
+            )}
             <TextField
               margin='normal'
               required
@@ -85,6 +118,7 @@ export default function SignUp() {
               type='submit'
               fullWidth
               variant='contained'
+              disabled={btnDisabled || hasSameName}
               sx={{
                 mt: 3,
                 mb: 2,
