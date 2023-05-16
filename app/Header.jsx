@@ -38,6 +38,7 @@ function Header() {
         {isLogin ? (
           <div className={style.rightlogined}>
             <p>{`Hi, ${localStorage.getItem('userName')}`}</p>
+            <Link href='/bookmark'>Bookmarks</Link>
             <span onClick={handleLogout}>Logout</span>
           </div>
         ) : (
