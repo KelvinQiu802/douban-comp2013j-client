@@ -15,6 +15,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem('userName');
     setIsLogin(false);
+    location.reload();
   };
 
   useEffect(() => {
