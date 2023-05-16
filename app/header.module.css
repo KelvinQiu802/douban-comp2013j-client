@@ -9,7 +9,7 @@
   display: flex;
   width: 1200px;
   margin: 0 auto;
-  line-height: 45px;
+  line-height: 46px;
   justify-content: space-around;
 }
 
@@ -36,6 +36,27 @@
   display: flex;
   font-size: 18px;
   gap: 5px;
+}
+
+.rightlogined {
+  color: #0b772c;
+  display: flex;
+  font-size: 18px;
+  gap: 15px;
+}
+
+.rightlogined p {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.rightlogined span {
+  cursor: pointer;
+}
+
+.rightlogined span:hover {
+  cursor: pointer;
+  color: #05501b;
 }
 
 .right a {

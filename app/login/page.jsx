@@ -48,6 +48,7 @@ export default function LogIn() {
     });
     setUnauthorized(false);
     if (result.status == 200) {
+      localStorage.setItem('userName', userInfo.userName);
       router.push('/');
     } else if (result.status == 401) {
       setUnauthorized(true);

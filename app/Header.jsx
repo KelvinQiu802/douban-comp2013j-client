@@ -1,13 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './header.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 function Header() {
   const router = useRouter();
+  const path = usePathname();
+
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('userName'));
+
+  const handleLogout = () => {
+    localStorage.removeItem('userName');
+    setIsLogin(false);
+  };
+
+  useEffect(() => {
+    setIsLogin(localStorage.getItem('userName'));
+  }, [path]);
 
   return (
     <div className={style.header} id='head'>
@@ -22,12 +34,18 @@ function Header() {
           />
           <h1>Douban Movies</h1>
         </div>
-
-        <div className={style.right}>
-          <Link href={'/login'}>Login</Link>
-          <span>/</span>
-          <Link href={'/signup'}>Signup</Link>
-        </div>
+        {isLogin ? (
+          <div className={style.rightlogined}>
+            <p>{`Hi, ${localStorage.getItem('userName')}`}</p>
+            <span onClick={handleLogout}>Logout</span>
+          </div>
+        ) : (
+          <div className={style.right}>
+            <Link href={'/login'}>Login</Link>
+            <span>/</span>
+            <Link href={'/signup'}>Signup</Link>
+          </div>
+        )}
       </div>
     </div>
   );
