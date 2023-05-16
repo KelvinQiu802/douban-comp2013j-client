@@ -1,7 +1,26 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import MovieInfo from './MovieInfo';
+import style from './page.module.css';
 
 export default function Page({ params }) {
-  return <div>{params.id}</div>;
+  const [movie, setMovie] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const movie = await fetch(
+        `http://localhost:7070/api/movies/${params.id}`
+      ).then((result) => result.json());
+      setMovie(movie);
+    })();
+  }, [params.id]);
+
+  return (
+    <div className={style.content}>
+      <MovieInfo movie={movie} />
+    </div>
+  );
 }
 
 export async function generateStaticParams() {
