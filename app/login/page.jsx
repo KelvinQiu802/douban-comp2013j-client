@@ -14,10 +14,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green } from '@mui/material/colors';
 import { isBlank } from '@/utils/stringUtil';
+import { useRouter } from 'next/navigation';
+import { Alert } from '@mui/material';
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function LogIn() {
+  const router = useRouter();
+
+  let [unauthorized, setUnauthorized] = React.useState(false);
   let [btnDisabled, setBtnDisabled] = React.useState(true);
   const [userInfo, setUserInfo] = React.useState({
     userName: '',
@@ -32,8 +37,25 @@ export default function SignIn() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const result = await fetch('http://localhost:7070/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userInfo),
+    });
+    setUnauthorized(false);
+    if (result.status == 200) {
+      router.push('/');
+    } else if (result.status == 401) {
+      setUnauthorized(true);
+      setBtnDisabled(true);
+      setUserInfo({ userName: '', password: '' });
+    } else {
+      alert('Login failed, please try again.');
+    }
   };
 
   return (
@@ -85,6 +107,11 @@ export default function SignIn() {
               value={userInfo.password}
               autoComplete='current-password'
             />
+            {unauthorized && (
+              <Alert severity='error' sx={{ width: 400 }}>
+                The user name or password is incorrect.
+              </Alert>
+            )}
             <Button
               type='submit'
               fullWidth
