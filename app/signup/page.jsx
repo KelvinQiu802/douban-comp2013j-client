@@ -49,7 +49,7 @@ export default function SignUp() {
     if (result.status != 200) {
       alert('Sign up failed, please try again.');
     } else {
-      router.push('/');
+      router.push('/login');
     }
   };
 
