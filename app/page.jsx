@@ -26,6 +26,7 @@ export default function Home() {
   const [pageCount, setPageCount] = useState(1);
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
 
   function handlePageChange(e, pageNum) {
     setPage(pageNum);
@@ -39,6 +40,7 @@ export default function Home() {
     (async () => {
       setPageCount(await getPageCount());
     })();
+    setIsLogin(localStorage.getItem('userName'));
   }, []);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {movies.map((movie) => (
-        <MovieCard key={movie.movieId} movie={movie} />
+        <MovieCard key={movie.movieId} movie={movie} isLogin={isLogin} />
       ))}
       <Pagination
         count={pageCount}

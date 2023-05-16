@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, isLogin }) {
   const fakeScore = Math.random() * 10;
 
   return (
@@ -36,10 +36,17 @@ function MovieCard({ movie }) {
           <div className={styles.score}>{fakeScore.toFixed(1)}</div>
         </div>
         <p className={styles.abstract}>{`"${movie.abstractInfo}"`}</p>
-        <div className={styles.btns}>
-          <div>Wanna Watch</div>
-          <div>Watched</div>
-        </div>
+        {isLogin ? (
+          <div className={styles.btns}>
+            <div>Wanna Watch</div>
+            <div>Watched</div>
+          </div>
+        ) : (
+          <div className={styles.btns}>
+            <Link href='/login'>Wanna Watch</Link>
+            <Link href='/login'>Watched</Link>
+          </div>
+        )}
       </div>
     </div>
   );
