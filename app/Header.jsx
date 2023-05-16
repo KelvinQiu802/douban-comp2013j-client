@@ -10,7 +10,7 @@ function Header() {
   const router = useRouter();
   const path = usePathname();
 
-  const [isLogin, setIsLogin] = useState(localStorage.getItem('userName'));
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('userName');
