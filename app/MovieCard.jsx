@@ -11,7 +11,9 @@ function MovieCard({ movie }) {
 
   return (
     <div className={styles.card}>
-      <Image src={movie.imgUrl} alt='img' width={100} height={150} />
+      <Link href={`/movie/${movie.movieId}`}>
+        <Image src={movie.imgUrl} alt='img' width={100} height={150} />
+      </Link>
       <div className={styles.right}>
         <Link href={`/movie/${movie.movieId}`}>
           <h1>{movie.movieTitle}</h1>
