@@ -83,6 +83,7 @@ function YourScore({ movie }) {
         value={score}
         onChange={handleChange}
         className={style.rate}
+        precision={0.5}
       />
     </div>
   );
