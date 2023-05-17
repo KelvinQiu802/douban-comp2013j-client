@@ -8,7 +8,21 @@ function TextArea({ movie, isLogin }) {
   const router = useRouter();
   const [text, setText] = useState('');
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    await fetch(`http://localhost:7070/api/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName: localStorage.getItem('userName'),
+        movieId: movie.movieId,
+        content: text,
+      }),
+    });
+    setText('');
+    location.reload();
+  };
 
   return (
     <div style={style.content}>

@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 import style from './comments.module.css';
 
 async function getComments(id) {
+  if (!id) {
+    return [];
+  }
   const result = await fetch(
     `http://localhost:7070/api/comments/movie/${id}`
   ).then((result) => result.json());
