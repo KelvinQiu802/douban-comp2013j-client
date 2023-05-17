@@ -3,7 +3,7 @@
 import { Pagination, stepButtonClasses } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import MovieCard from './MovieCard';
+import MovieCard from '../components/movie/MovieCard';
 
 const LIMIT = 10;
 

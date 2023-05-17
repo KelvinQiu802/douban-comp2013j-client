@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import MovieInfo from './MovieInfo';
+import MovieInfo from '../../../components/movie/MovieInfo';
 import style from './page.module.css';
-import YourScore from './YourScore';
-import BookmarksBtn from '@/app/BookmarksBtn';
-import Comments from './Comments';
-import TextArea from './TextArea';
+import YourScore from '../../../components/movie/YourScore';
+import BookmarksBtn from '@/components/BookmarksBtn';
+import Comments from '../../../components/comment/Comments';
+import TextArea from '../../../components/comment/TextArea';
 
 async function getBookmarks(userName) {
   const result = await fetch(

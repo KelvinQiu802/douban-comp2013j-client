@@ -5,7 +5,7 @@ import style from './page.module.css';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import STATUS from '@/utils/bookmarkStatus';
-import MovieCard from '../MovieCard';
+import MovieCard from '../../components/movie/MovieCard';
 
 async function getBookmarks(userName) {
   const result = await fetch(

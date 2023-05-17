@@ -5,7 +5,7 @@ import styles from './movie.module.css';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
-import BookmarksBtn from './BookmarksBtn';
+import BookmarksBtn from '../BookmarksBtn';
 import { getMovieScore } from '@/utils/movieUtil';
 
 function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
