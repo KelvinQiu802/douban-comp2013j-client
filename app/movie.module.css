@@ -92,12 +92,12 @@
 }
 
 .btns .active {
-  background-color: #357436;
+  background-color: #6fa96f;
   color: white;
 }
 
 .btns div:hover {
   cursor: pointer;
   color: white;
-  background-color: #6f3735;
+  background-color: #579a57;
 }

@@ -69,6 +69,7 @@ export default function Home() {
           movie={movie}
           isLogin={isLogin}
           bookmarks={bookmarks}
+          setBookmarks={setBookmarks}
         />
       ))}
       <Pagination

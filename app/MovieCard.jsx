@@ -20,11 +20,68 @@ function includeMovie(list, id) {
   return false;
 }
 
-function MovieCard({ movie, isLogin, bookmarks }) {
+async function getBookmarks(userName) {
+  const result = await fetch(
+    `http://localhost:7070/api/bookmarks/${userName}`
+  ).then((result) => result.json());
+  return result;
+}
+
+function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
   const fakeScore = Math.random() * 10;
 
   const watched = bookmarks.filter((mark) => mark.status == STATUS.WATCHED);
   const wanna = bookmarks.filter((mark) => mark.status == STATUS.WANNA);
+  const isWanna = includeMovie(wanna, movie.movieId);
+  const isWatched = includeMovie(watched, movie.movieId);
+
+  const handleWannaWatch = async () => {
+    const userName = localStorage.getItem('userName');
+    if (!isWanna && !isWatched) {
+      // create new bookmark
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}/${STATUS.WANNA}`,
+        { method: 'POST' }
+      );
+    } else if (!isWanna && isWatched) {
+      // update status
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}/${STATUS.WANNA}`,
+        { method: 'PUT' }
+      );
+    } else if (isWanna && !isWatched) {
+      // delete bookmark
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}`,
+        { method: 'DELETE' }
+      );
+    }
+    setBookmarks(await getBookmarks(userName));
+  };
+
+  const handleWatched = async () => {
+    const userName = localStorage.getItem('userName');
+    if (!isWanna && !isWatched) {
+      // create new bookmark
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}/${STATUS.WATCHED}`,
+        { method: 'POST' }
+      );
+    } else if (isWanna && !isWatched) {
+      // update status
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}/${STATUS.WATCHED}`,
+        { method: 'PUT' }
+      );
+    } else if (!isWanna && isWatched) {
+      // delete bookmark
+      await fetch(
+        `http://localhost:7070/api/bookmarks/${userName}/${movie.movieId}`,
+        { method: 'DELETE' }
+      );
+    }
+    setBookmarks(await getBookmarks(userName));
+  };
 
   return (
     <div className={styles.card}>
@@ -56,16 +113,14 @@ function MovieCard({ movie, isLogin, bookmarks }) {
         {isLogin ? (
           <div className={styles.btns}>
             <div
-              className={
-                includeMovie(wanna, movie.movieId) ? styles.active : ''
-              }
+              className={isWanna ? styles.active : ''}
+              onClick={handleWannaWatch}
             >
               Wanna Watch
             </div>
             <div
-              className={
-                includeMovie(watched, movie.movieId) ? styles.active : ''
-              }
+              className={isWatched ? styles.active : ''}
+              onClick={handleWatched}
             >
               Watched
             </div>
