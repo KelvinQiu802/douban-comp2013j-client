@@ -29,3 +29,14 @@
   font-size: 14px;
   margin-top: 3px;
 }
+
+.delete {
+  color: #858484;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: white;
+  background-color: #587f50;
+}

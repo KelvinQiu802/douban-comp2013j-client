@@ -58,6 +58,7 @@ export default function Page({ params }) {
       <div className={style.introtitle}>Comments · · · · · ·</div>
       <TextArea movie={movie} isLogin={isLogin} />
       <Comments movie={movie} isLogin={isLogin} />
+      <div className={style.blank}></div>
     </div>
   );
 }
