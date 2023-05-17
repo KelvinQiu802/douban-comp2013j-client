@@ -34,15 +34,17 @@ function TextArea({ movie, isLogin }) {
             value={text}
             onChange={(e) => setText(e.target.value)}
           ></textarea>
-          <Button
-            variant='outlined'
-            color='success'
-            disabled={isBlank(text)}
-            className={style.submit}
-            onClick={handleSubmit}
-          >
-            Comment
-          </Button>
+          <div className={style.btnbox}>
+            <Button
+              variant='outlined'
+              color='success'
+              disabled={isBlank(text)}
+              className={style.submit}
+              onClick={handleSubmit}
+            >
+              Comment
+            </Button>
+          </div>
         </>
       ) : (
         <Button
