@@ -2,7 +2,7 @@
   height: 45px;
   text-align: center;
   line-height: 40px;
-  background-color: #edf4ee;
+  background-color: #eff4f0;
 }
 
 .content {
@@ -16,14 +16,17 @@
 .left {
   display: flex;
   user-select: none;
-  gap: 10px;
+  gap: 15px;
   cursor: pointer;
+  margin-left: 40px;
 }
 
 .content h1 {
-  font-size: 22px;
-  font-weight: 400;
-  font-family: 'Righteous', cursive;
+  font-size: 30px;
+  font-weight: 300;
+  font-family: 'Kalam', cursive;
+  position: relative;
+  top: 2px;
 }
 
 .icon {
@@ -32,17 +35,17 @@
 }
 
 .right {
-  color: #0b772c;
+  color: #05521c;
   display: flex;
   font-size: 18px;
-  gap: 5px;
+  gap: 8px;
 }
 
 .rightlogined {
-  color: #0b772c;
+  color: #075b20;
   display: flex;
   font-size: 18px;
-  gap: 20px;
+  gap: 28px;
 }
 
 .rightlogined p {
@@ -56,7 +59,7 @@
 
 .rightlogined span:hover {
   cursor: pointer;
-  color: #05501b;
+  color: #032b0f;
 }
 
 .rightlogined a {
@@ -65,7 +68,7 @@
 }
 
 .rightlogined a:hover {
-  color: #05571e;
+  color: #021c0a;
 }
 
 .right a {
@@ -74,5 +77,5 @@
 }
 
 .right a:hover {
-  color: #05571e;
+  color: #02270d;
 }

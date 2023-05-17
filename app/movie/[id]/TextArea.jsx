@@ -50,6 +50,7 @@ function TextArea({ movie, isLogin }) {
           color='success'
           onClick={() => router.push('/login')}
           size='small'
+          className={style.submit}
         >
           Login to Comment
         </Button>

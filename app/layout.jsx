@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           crossOrigin='true'
         />
         <link
-          href='https://fonts.googleapis.com/css2?family=Righteous&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Kalam&display=swap'
           rel='stylesheet'
         />
       </head>

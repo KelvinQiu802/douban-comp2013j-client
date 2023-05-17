@@ -26,14 +26,7 @@ function Header() {
     <div className={style.header} id='head'>
       <div className={style.content}>
         <div className={style.left} onClick={() => router.push('/')}>
-          <Image
-            src={'/favicon.svg'}
-            width={35}
-            height={35}
-            alt='facivon'
-            className={style.icon}
-          />
-          <h1>Douban Movies</h1>
+          <h1>Duck Movies</h1>
         </div>
         {isLogin ? (
           <div className={style.rightlogined}>
