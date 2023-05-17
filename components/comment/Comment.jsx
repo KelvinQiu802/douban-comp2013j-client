@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import style from './comment.module.css';
 import ChangeHistoryTwoToneIcon from '@mui/icons-material/ChangeHistoryTwoTone';
 import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
+import { useRouter } from 'next/navigation';
 
 function hasMyVote(votes, name) {
   for (let i = 0; i < votes.length; i++) {
@@ -21,12 +22,13 @@ async function getVotes(id) {
   return result;
 }
 
-function Comment({ comment }) {
+function Comment({ comment, isLogin }) {
   const [votes, setVotes] = useState([]);
   const [upCount, setUpCount] = useState(0);
   const [downCount, setDownCount] = useState(0);
   const [voteForUp, setVoteForUp] = useState(false);
   const [voteForDown, setVoteForDown] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -35,18 +37,19 @@ function Comment({ comment }) {
   }, [comment]);
 
   useEffect(() => {
+    const userName = localStorage.getItem('userName');
     setUpCount(votes.filter((vote) => vote.status == 'UP').length);
     setDownCount(votes.filter((vote) => vote.status == 'DOWN').length);
     setVoteForUp(
       hasMyVote(
         votes.filter((vote) => vote.status == 'UP'),
-        comment.userName
+        userName
       )
     );
     setVoteForDown(
       hasMyVote(
         votes.filter((vote) => vote.status == 'DOWN'),
-        comment.userName
+        userName
       )
     );
   }, [votes, comment]);
@@ -59,22 +62,27 @@ function Comment({ comment }) {
   };
 
   const handleUp = async () => {
+    if (!isLogin) {
+      router.push('/login');
+      return;
+    }
+    const userName = localStorage.getItem('userName');
     if (!voteForUp && !voteForDown) {
       // create
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.userName}/${comment.commentId}/UP`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}/UP`,
         { method: 'POST' }
       );
     } else if (!voteForUp && voteForDown) {
       // update
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.userName}/${comment.commentId}/UP`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}/UP`,
         { method: 'PUT' }
       );
     } else if (voteForUp && !voteForDown) {
       // delete
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.commentId}`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}`,
         { method: 'DELETE' }
       );
     }
@@ -82,22 +90,27 @@ function Comment({ comment }) {
   };
 
   const handleDown = async () => {
+    if (!isLogin) {
+      router.push('/login');
+      return;
+    }
+    const userName = localStorage.getItem('userName');
     if (!voteForUp && !voteForDown) {
       // create
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.userName}/${comment.commentId}/DOWN`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}/DOWN`,
         { method: 'POST' }
       );
     } else if (voteForUp && !voteForDown) {
       // update
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.userName}/${comment.commentId}/DOWN`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}/DOWN`,
         { method: 'PUT' }
       );
     } else if (!voteForUp && voteForDown) {
       // delete
       await fetch(
-        `http://localhost:7070/api/commentvotes/${comment.commentId}`,
+        `http://localhost:7070/api/commentvotes/${userName}/${comment.commentId}`,
         { method: 'DELETE' }
       );
     }

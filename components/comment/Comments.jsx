@@ -26,7 +26,7 @@ function Comments({ movie, isLogin }) {
   return (
     <div className={style.content}>
       {comments.map((comment) => (
-        <Comment key={comment.commentId} comment={comment} />
+        <Comment key={comment.commentId} comment={comment} isLogin={isLogin} />
       ))}
     </div>
   );
