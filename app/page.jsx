@@ -22,11 +22,19 @@ async function getMovies(page, limit) {
   return json;
 }
 
+async function getBookmarks(userName) {
+  const result = await fetch(
+    `http://localhost:7070/api/bookmarks/${userName}`
+  ).then((result) => result.json());
+  return result;
+}
+
 export default function Home() {
   const [pageCount, setPageCount] = useState(1);
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
 
   function handlePageChange(e, pageNum) {
     setPage(pageNum);
@@ -39,8 +47,12 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       setPageCount(await getPageCount());
+      const userName = localStorage.getItem('userName');
+      if (userName) {
+        setBookmarks(await getBookmarks(userName));
+      }
+      setIsLogin(userName);
     })();
-    setIsLogin(localStorage.getItem('userName'));
   }, []);
 
   useEffect(() => {
@@ -52,7 +64,12 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {movies.map((movie) => (
-        <MovieCard key={movie.movieId} movie={movie} isLogin={isLogin} />
+        <MovieCard
+          key={movie.movieId}
+          movie={movie}
+          isLogin={isLogin}
+          bookmarks={bookmarks}
+        />
       ))}
       <Pagination
         count={pageCount}

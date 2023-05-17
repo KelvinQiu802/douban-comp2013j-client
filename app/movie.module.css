@@ -87,6 +87,15 @@
   margin-top: 10px;
 }
 
+.btns div {
+  padding: 1px;
+}
+
+.btns .active {
+  background-color: #357436;
+  color: white;
+}
+
 .btns div:hover {
   cursor: pointer;
   color: white;

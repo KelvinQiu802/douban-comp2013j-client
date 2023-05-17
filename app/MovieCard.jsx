@@ -6,8 +6,25 @@ import Image from 'next/image';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
 
-function MovieCard({ movie, isLogin }) {
+const STATUS = {
+  WATCHED: 'WATCHED',
+  WANNA: 'WANNA',
+};
+
+function includeMovie(list, id) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].movieId == id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function MovieCard({ movie, isLogin, bookmarks }) {
   const fakeScore = Math.random() * 10;
+
+  const watched = bookmarks.filter((mark) => mark.status == STATUS.WATCHED);
+  const wanna = bookmarks.filter((mark) => mark.status == STATUS.WANNA);
 
   return (
     <div className={styles.card}>
@@ -38,8 +55,20 @@ function MovieCard({ movie, isLogin }) {
         <p className={styles.abstract}>{`"${movie.abstractInfo}"`}</p>
         {isLogin ? (
           <div className={styles.btns}>
-            <div>Wanna Watch</div>
-            <div>Watched</div>
+            <div
+              className={
+                includeMovie(wanna, movie.movieId) ? styles.active : ''
+              }
+            >
+              Wanna Watch
+            </div>
+            <div
+              className={
+                includeMovie(watched, movie.movieId) ? styles.active : ''
+              }
+            >
+              Watched
+            </div>
           </div>
         ) : (
           <div className={styles.btns}>
