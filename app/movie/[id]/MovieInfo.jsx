@@ -45,6 +45,10 @@ function MovieInfo({ movie }) {
             <span className={style.key}>Runtime: </span>
             <span className={style.value}>{movie.runtime}</span>
           </div>
+          <div className={style.info}>
+            <span className={style.key}>ID: </span>
+            <span className={style.value}>{movie.movieId}</span>
+          </div>
         </div>
         <div className={style.left}>
           <h5>Score</h5>
