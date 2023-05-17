@@ -15,7 +15,9 @@
 
 .logined .category {
   color: #494949;
-  font-size: 25px;
+  font-size: 21px;
   font-weight: 400;
   margin-bottom: 7px;
+  margin-left: 63px;
+  margin-top: 10px;
 }
