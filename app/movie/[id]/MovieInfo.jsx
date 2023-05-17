@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { Rating } from '@mui/material';
 
 function MovieInfo({ movie }) {
-  const fakeScore = Math.random() * 10;
-
   return (
     <div className={style.content}>
       <div className={style.head}>
@@ -53,11 +51,9 @@ function MovieInfo({ movie }) {
         <div className={style.left}>
           <h5>Score</h5>
           <div className={style.score}>
-            {/* <div>{movie.score}</div> */}
-            <div>{fakeScore.toFixed(1)}</div>
+            <div>{movie.score}</div>
             <Rating
-              // value={Math.floor(movie.score / 2)}
-              value={Math.floor(fakeScore / 2)}
+              value={Math.floor(movie.score / 2)}
               size='medium'
               className={style.star}
               readOnly
