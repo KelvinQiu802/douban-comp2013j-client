@@ -1,13 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './movie.module.css';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
 import BookmarksBtn from './BookmarksBtn';
+import { getMovieScore } from '@/utils/movieUtil';
 
 function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      setScore(await getMovieScore(movie.movieId));
+    })();
+  }, [movie]);
+
   return (
     <div className={styles.card}>
       <Link href={`/movie/${movie.movieId}`}>
@@ -25,12 +34,12 @@ function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
         >{`${movie.releaseDate} / ${movie.country} / ${movie.genre}`}</p>
         <div className={styles.rating}>
           <Rating
-            value={Math.floor(movie.score / 2)}
+            value={Math.floor(score / 2)}
             size='small'
             readOnly
             className={styles.stars}
           />
-          <div className={styles.score}>{movie.score}</div>
+          <div className={styles.score}>{score}</div>
         </div>
         <p className={styles.abstract}>{`"${movie.abstractInfo}"`}</p>
         <BookmarksBtn

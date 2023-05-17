@@ -2,8 +2,17 @@ import React from 'react';
 import style from './movieinfo.module.css';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
+import { getMovieScore } from '@/utils/movieUtil';
 
 function MovieInfo({ movie }) {
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      setScore(await getMovieScore(movie.movieId));
+    })();
+  }, [movie]);
+
   return (
     <div className={style.content}>
       <div className={style.head}>
@@ -51,9 +60,9 @@ function MovieInfo({ movie }) {
         <div className={style.left}>
           <h5>Score</h5>
           <div className={style.score}>
-            <div>{movie.score}</div>
+            <div>{score}</div>
             <Rating
-              value={Math.floor(movie.score / 2)}
+              value={Math.floor(score / 2)}
               size='medium'
               className={style.star}
               readOnly
