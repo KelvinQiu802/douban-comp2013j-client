@@ -9,7 +9,7 @@ import BookmarksBtn from './BookmarksBtn';
 import { getMovieScore } from '@/utils/movieUtil';
 
 function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState('0.0');
 
   useEffect(() => {
     (async () => {

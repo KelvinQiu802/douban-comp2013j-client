@@ -5,9 +5,9 @@ import { Rating } from '@mui/material';
 import { getMovieScore } from '@/utils/movieUtil';
 
 function MovieInfo({ movie }) {
-  const [score, setScore] = useState(0);
+  const [score, setScore] = React.useState('0.0');
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       setScore(await getMovieScore(movie.movieId));
     })();
