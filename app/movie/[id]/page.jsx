@@ -51,6 +51,8 @@ export default function Page({ params }) {
         </div>
         <YourScore movie={movie} />
       </div>
+      <div className={style.introtitle}>Introduction · · · · · ·</div>
+      <div className={style.intro}>{movie.intro}</div>
     </div>
   );
 }
