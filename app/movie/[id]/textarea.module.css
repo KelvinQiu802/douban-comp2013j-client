@@ -1,0 +1,11 @@
+.text {
+  padding: 4px;
+  width: 710px;
+  height: 80px;
+  resize: none;
+}
+
+.submit {
+  margin-left: 600px;
+  margin-top: 2px;
+}

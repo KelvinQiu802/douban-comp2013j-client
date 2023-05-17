@@ -5,6 +5,8 @@ import MovieInfo from './MovieInfo';
 import style from './page.module.css';
 import YourScore from './YourScore';
 import BookmarksBtn from '@/app/BookmarksBtn';
+import Comments from './Comments';
+import TextArea from './TextArea';
 
 async function getBookmarks(userName) {
   const result = await fetch(
@@ -53,6 +55,9 @@ export default function Page({ params }) {
       </div>
       <div className={style.introtitle}>Introduction · · · · · ·</div>
       <div className={style.intro}>{movie.intro}</div>
+      <div className={style.introtitle}>Comments · · · · · ·</div>
+      <TextArea movie={movie} isLogin={isLogin} />
+      <Comments movie={movie} isLogin={isLogin} />
     </div>
   );
 }
