@@ -1,2 +1,31 @@
 .content {
+  margin-top: 10px;
+}
+
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user {
+  color: #587f50;
+  font-size: 14px;
+}
+
+.time {
+  color: #aaaaaa;
+  font-size: 13px;
+}
+
+.comment {
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+  margin-top: 12px;
+}
+
+.comment p {
+  color: #666666;
+  font-size: 14px;
+  margin-top: 3px;
 }
