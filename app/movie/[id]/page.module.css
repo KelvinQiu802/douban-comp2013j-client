@@ -3,3 +3,13 @@
   margin: 0 auto;
   margin-top: 30px;
 }
+
+.rate {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btns {
+  margin-top: 2px;
+}

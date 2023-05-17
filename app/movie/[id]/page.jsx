@@ -4,9 +4,29 @@ import React, { useEffect, useState } from 'react';
 import MovieInfo from './MovieInfo';
 import style from './page.module.css';
 import YourScore from './YourScore';
+import BookmarksBtn from '@/app/BookmarksBtn';
+
+async function getBookmarks(userName) {
+  const result = await fetch(
+    `http://localhost:7070/api/bookmarks/${userName}`
+  ).then((result) => result.json());
+  return result;
+}
 
 export default function Page({ params }) {
   const [movie, setMovie] = useState({});
+  const [isLogin, setIsLogin] = useState(false);
+  const [bookmarks, setBookmarks] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const userName = localStorage.getItem('userName');
+      if (userName) {
+        setBookmarks(await getBookmarks(userName));
+      }
+      setIsLogin(userName);
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -20,7 +40,17 @@ export default function Page({ params }) {
   return (
     <div className={style.content}>
       <MovieInfo movie={movie} />
-      <YourScore movie={movie} />
+      <div className={style.rate}>
+        <div className={style.btns}>
+          <BookmarksBtn
+            isLogin={isLogin}
+            bookmarks={bookmarks}
+            setBookmarks={setBookmarks}
+            movie={movie}
+          />
+        </div>
+        <YourScore movie={movie} />
+      </div>
     </div>
   );
 }
