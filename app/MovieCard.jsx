@@ -5,11 +5,7 @@ import styles from './movie.module.css';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
 import Link from 'next/link';
-
-const STATUS = {
-  WATCHED: 'WATCHED',
-  WANNA: 'WANNA',
-};
+import STATUS from '@/utils/bookmarkStatus';
 
 function includeMovie(list, id) {
   for (let i = 0; i < list.length; i++) {
