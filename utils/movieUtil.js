@@ -1,4 +1,7 @@
 export async function getMovieScore(id) {
+  if (!id) {
+    return '0.0';
+  }
   const scores = await fetch(`http://localhost:7070/api/scores/${id}`).then(
     (result) => result.json()
   );
@@ -6,6 +9,5 @@ export async function getMovieScore(id) {
   if (scores.length) {
     return ((scoreSum / scores.length) * 2).toFixed(1);
   }
-  let score = 0;
-  return score.toFixed(1);
+  return '0.0';
 }
