@@ -17,6 +17,7 @@ async function getBookmarks(userName) {
 
 export default function Page({ params }) {
   const [movie, setMovie] = useState({});
+  const [score, setScore] = React.useState('0.0');
   const [isLogin, setIsLogin] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
 
@@ -41,7 +42,7 @@ export default function Page({ params }) {
 
   return (
     <div className={style.content}>
-      <MovieInfo movie={movie} />
+      <MovieInfo movie={movie} score={score} setScore={setScore} />
       <div className={style.rate}>
         <div className={style.btns}>
           <BookmarksBtn
@@ -51,7 +52,7 @@ export default function Page({ params }) {
             movie={movie}
           />
         </div>
-        <YourScore movie={movie} />
+        <YourScore movie={movie} setScore={setScore} />
       </div>
       <div className={style.introtitle}>Introduction · · · · · ·</div>
       <div className={style.intro}>{movie.intro}</div>

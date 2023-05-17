@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import style from './yourscore.module.css';
 import { Rating } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { getMovieScore } from '@/utils/movieUtil';
 
 async function createScoreRecord(userName, movieId, score) {
   await fetch(
@@ -44,34 +45,33 @@ async function getScoreIfExist(userName, movieId) {
   return 0;
 }
 
-function YourScore({ movie }) {
+function YourScore({ movie, setScore }) {
   const [isLogin, setIsLogin] = useState(false);
-  const [score, setScore] = useState(0);
+  const [myScore, setMyScore] = useState(0);
   const router = useRouter();
 
-  const handleChange = (e, value) => {
+  const handleChange = async (e, value) => {
     if (!isLogin) {
       router.push('/login');
       return;
     }
     const userName = localStorage.getItem('userName');
-    if (score == 0) {
-      createScoreRecord(userName, movie.movieId, value);
+    if (myScore == 0) {
+      await createScoreRecord(userName, movie.movieId, value);
     } else if (value == null) {
-      deleteScoreRecord(userName, movie.movieId);
-      setScore(0);
+      await deleteScoreRecord(userName, movie.movieId);
     } else {
-      updateScoreRecord(userName, movie.movieId, value);
+      await updateScoreRecord(userName, movie.movieId, value);
     }
-    setScore(value);
-    location.reload();
+    setMyScore(value);
+    setScore(await getMovieScore(movie.movieId));
   };
 
   useEffect(() => {
     (async () => {
       const userName = localStorage.getItem('userName');
       setIsLogin(userName);
-      setScore(await getScoreIfExist(userName, movie.movieId));
+      setMyScore(await getScoreIfExist(userName, movie.movieId));
     })();
   }, [movie]);
 
@@ -80,7 +80,7 @@ function YourScore({ movie }) {
       <span>Your Score: </span>
       <Rating
         name='no-value'
-        value={score}
+        value={myScore}
         onChange={handleChange}
         className={style.rate}
         precision={0.5}
