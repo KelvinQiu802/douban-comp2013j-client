@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieInfo from './MovieInfo';
 import style from './page.module.css';
+import YourScore from './YourScore';
 
 export default function Page({ params }) {
   const [movie, setMovie] = useState({});
@@ -19,6 +20,7 @@ export default function Page({ params }) {
   return (
     <div className={style.content}>
       <MovieInfo movie={movie} />
+      <YourScore movie={movie} />
     </div>
   );
 }
