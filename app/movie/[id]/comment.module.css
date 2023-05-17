@@ -1,0 +1,38 @@
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user {
+  color: #587f50;
+  font-size: 14px;
+}
+
+.time {
+  color: #aaaaaa;
+  font-size: 13px;
+}
+
+.comment {
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+  margin-top: 12px;
+}
+
+.comment p {
+  color: #666666;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.delete {
+  color: #858484;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: white;
+  background-color: #587f50;
+}
