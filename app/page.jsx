@@ -57,13 +57,10 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      setMovies(await getMovies(page, LIMIT));
+      const page = Number.parseInt(searchParams.get('page'));
+      setPage(page ? page : 1);
+      setMovies(await getMovies(page ? page : 1, LIMIT));
     })();
-  }, [page]);
-
-  useEffect(() => {
-    const page = Number.parseInt(searchParams.get('page'));
-    setPage(page ? page : 1);
   }, [searchParams]);
 
   useEffect(() => {
