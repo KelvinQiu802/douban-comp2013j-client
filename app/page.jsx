@@ -66,6 +66,10 @@ export default function Home() {
     setPage(page ? page : 1);
   }, [searchParams]);
 
+  useEffect(() => {
+    setIsLogin(localStorage.getItem('userName'));
+  }, [pathName]);
+
   return (
     <main className={styles.main}>
       {movies.map((movie) => (
