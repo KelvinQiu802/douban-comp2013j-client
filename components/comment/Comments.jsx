@@ -4,6 +4,11 @@ import React, { useEffect, useState } from 'react';
 import style from './comments.module.css';
 import Comment from './Comment';
 
+const ORDER = {
+  POPULAR: 'popular',
+  LATEST: 'latest',
+};
+
 async function getComments(id) {
   if (!id) {
     return [];
@@ -16,6 +21,15 @@ async function getComments(id) {
 
 function Comments({ movie, isLogin }) {
   const [comments, setComments] = useState([]);
+  const [order, setOrder] = useState(ORDER.POPULAR);
+
+  const handlePopular = () => {
+    setOrder(ORDER.POPULAR);
+  };
+
+  const handleLatest = () => {
+    setOrder(ORDER.LATEST);
+  };
 
   useEffect(() => {
     (async () => {
@@ -25,6 +39,21 @@ function Comments({ movie, isLogin }) {
 
   return (
     <div className={style.content}>
+      <div className={style.order}>
+        <div className={style.label}>Order: </div>
+        <div
+          className={order == ORDER.POPULAR ? style.select : ''}
+          onClick={handlePopular}
+        >
+          Popular
+        </div>
+        <div
+          className={order == ORDER.LATEST ? style.select : ''}
+          onClick={handleLatest}
+        >
+          Latest
+        </div>
+      </div>
       {comments.map((comment) => (
         <Comment key={comment.commentId} comment={comment} isLogin={isLogin} />
       ))}
