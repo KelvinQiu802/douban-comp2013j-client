@@ -34,8 +34,9 @@ function MovieCard({ movie, isLogin, bookmarks, setBookmarks }) {
         >{`${movie.releaseDate} / ${movie.country} / ${movie.genre}`}</p>
         <div className={styles.rating}>
           <Rating
-            value={Math.floor(score / 2)}
+            value={score / 2}
             size='small'
+            precision={0.5}
             readOnly
             className={styles.stars}
           />
