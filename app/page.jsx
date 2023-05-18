@@ -4,6 +4,7 @@ import { Pagination, stepButtonClasses } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import MovieCard from '../components/movie/MovieCard';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const LIMIT = 10;
 
@@ -35,13 +36,12 @@ export default function Home() {
   const [movies, setMovies] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
+  const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
 
   function handlePageChange(e, pageNum) {
-    setPage(pageNum);
-    let anchorElement = document.getElementById('head');
-    if (anchorElement) {
-      anchorElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    router.push(`${pathName}?page=${pageNum}`);
   }
 
   useEffect(() => {
@@ -60,6 +60,11 @@ export default function Home() {
       setMovies(await getMovies(page, LIMIT));
     })();
   }, [page]);
+
+  useEffect(() => {
+    const page = Number.parseInt(searchParams.get('page'));
+    setPage(page ? page : 1);
+  }, [searchParams]);
 
   return (
     <main className={styles.main}>
