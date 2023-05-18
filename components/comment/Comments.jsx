@@ -9,6 +9,36 @@ const ORDER = {
   LATEST: 'latest',
 };
 
+async function getVotes(id) {
+  const result = await fetch(
+    `http://localhost:7070/api/commentvotes/${id}`
+  ).then((result) => result.json());
+  return result;
+}
+
+async function sortByPolular(comments) {
+  const resultPromise = comments.map(async (comment) => {
+    const votes = await getVotes(comment.commentId);
+    const up = votes.filter((vote) => vote.status == 'UP').length;
+    const down = votes.filter((vote) => vote.status == 'DOWN').length;
+    return {
+      ...comment,
+      popular: up - down,
+    };
+  });
+  const commentWitPopular = await Promise.all(resultPromise);
+  commentWitPopular.sort((a, b) => b.popular - a.popular);
+  return commentWitPopular;
+}
+
+function sortByTime(comments) {
+  const commentsCopy = [...comments];
+  commentsCopy.sort(
+    (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
+  );
+  return commentsCopy;
+}
+
 async function getComments(id) {
   if (!id) {
     return [];
@@ -33,9 +63,19 @@ function Comments({ movie, isLogin }) {
 
   useEffect(() => {
     (async () => {
-      setComments(await getComments(movie.movieId));
+      setComments(await sortByPolular(await getComments(movie.movieId)));
     })();
   }, [movie]);
+
+  useEffect(() => {
+    (async () => {
+      if (order == ORDER.POPULAR) {
+        setComments(await sortByPolular(comments));
+      } else {
+        setComments(sortByTime(comments));
+      }
+    })();
+  }, [order]);
 
   return (
     <div className={style.content}>
